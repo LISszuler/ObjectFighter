@@ -19,6 +19,7 @@ Bron::Bron(string nazwaBroni, int bonusBroni) : Przedmiot(nazwaBroni) {
 }
 
 void Bron::uzyj(Postac& wlasciciel, Postac& wrog) {
+
     int obrazenia = wlasciciel.getAtak() + bonus + rand() % 4;
     wrog -= obrazenia;
     cout << wlasciciel.getImie() << " atakuje " << wrog.getImie()
@@ -85,12 +86,14 @@ Przedmiot* Ekwipunek::znajdz(string nazwa) const {
 
 Przedmiot* Ekwipunek::pobierz(int numer) const {
     if (numer < 0 || numer >= ile()) {
+
         throw runtime_error("Nie ma takiego przedmiotu w ekwipunku!");
     }
     return przedmioty[numer];
 }
 
 void Ekwipunek::dodaj(Przedmiot* nowy) {
+
     if (ile() >= MAX_MIEJSC) {
         throw runtime_error("Ekwipunek jest pelny!");
     }
@@ -98,7 +101,6 @@ void Ekwipunek::dodaj(Przedmiot* nowy) {
     if (nowy->jestBronia() && znajdz(nowy->getNazwa()) != nullptr) {
         throw runtime_error("Masz juz ta bron: " + nowy->getNazwa());
     }
-
     przedmioty[liczba] = nowy;
     liczba++;
 }
@@ -110,23 +112,8 @@ void Ekwipunek::usun(int numer) {
     for (int i = numer; i < liczba - 1; i++) {
         przedmioty[i] = przedmioty[i + 1];
     }
-
     liczba--;
     przedmioty[liczba] = nullptr;
-}
-
-void Ekwipunek::zamien(int numer, Przedmiot* nowy) {
-    Przedmiot* stary = pobierz(numer);
-
-    if (nowy->jestBronia()) {
-        Przedmiot* istniejacy = znajdz(nowy->getNazwa());
-        if (istniejacy != nullptr && istniejacy != stary) {
-            throw runtime_error("Masz juz ta bron: " + nowy->getNazwa());
-        }
-    }
-
-    delete stary;
-    przedmioty[numer] = nowy;
 }
 
 void Ekwipunek::wypisz() const {
