@@ -14,6 +14,12 @@ przez MSYS2 (pakiet `mingw-w64-ucrt-x86_64-gcc`) i dodać `C:\msys64\ucrt64\bin`
 g++ -std=c++17 -o ObjectFighters main.cpp postacie.cpp przedmioty.cpp
 ```
 
+lub tak gdy chcesz skompilować plik i zawrzeć wszystkie potrzebne bilioteki w środku
+
+```bash
+g++ -std=c++17 -O2 -s -static -o ObjectFighters.exe main.cpp postacie.cpp przedmioty.cpp
+```
+
 ## Uruchomienie
 
 ```bash
